@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tunexa - Inteligent Audio Engine</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 2em;
+            opacity: 0.9;
+        }
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 2em 0;
+        }
+        .module {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .module h3 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .github-link {
+            display: inline-block;
+            margin-top: 2em;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .github-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        footer {
+            margin-top: auto;
+            padding-top: 2em;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Tunexa</h1>
+        <p class="subtitle">Inteligent Audio Engine, ktorý sa ladí podľa teba</p>
+        
+        <p>Tunexa je modulárny systém pre analýzu, tuning a certifikáciu audio systémov v automobiloch. Projekt obsahuje AI nástroje pre porovnávanie vozidiel, meranie audia podľa štandardov, integráciu s OEM systémami a pokročilý AI background listener.</p>
+        
+        <div class="modules">
+            <div class="module">
+                <h3>🚗 Reference Car Comparison</h3>
+                <p>Porovnávanie vozidiel podľa zvolených kritérií</p>
+            </div>
+            <div class="module">
+                <h3>🔊 Audio Certification</h3>
+                <p>Automatizované merania a certifikácia audio systémov</p>
+            </div>
+            <div class="module">
+                <h3>🔧 OEM Integration</h3>
+                <p>Prepojenie s OEM elektronikou a diagnostikou auta</p>
+            </div>
+            <div class="module">
+                <h3>🤖 AI Background Listener</h3>
+                <p>Neustále sledovanie prostredia a reakcia na spúšťače</p>
+            </div>
+        </div>
+        
+        <a href="https://github.com/MichalTech14/Tunexa" class="github-link">
+            📂 Pozrieť na GitHub
+        </a>
+        
+        <footer>
+            <p>© 2025 MichalTech14 | MIT License</p>
+        </footer>
+    </div>
+</body>
+</html>

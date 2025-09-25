@@ -159,6 +159,11 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+# But allow web files for GitHub Pages
+!index.html
+!*.css
+!*.js
+
 # Pyre type checker
 .pyre/
 
