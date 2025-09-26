@@ -1,1 +1,1273 @@
-[{"brand": "Škoda", "models": [{"name": "Octavia", "types": ["Combi", "Sedan"]}, {"name": "Superb", "types": ["Combi", "Sedan"]}]}, {"brand": "Volkswagen", "models": [{"name": "Golf", "types": ["Hatchback", "Variant"]}, {"name": "Passat", "types": ["Sedan", "Variant"]}]}, {"brand": "BMW", "models": [{"name": "3 Series", "types": ["Sedan", "Touring"]}, {"name": "X5", "types": ["SUV"]}]}]
+[
+  {
+    "brand": "Škoda",
+    "models": [
+      {
+        "name": "Octavia",
+        "types": ["Combi", "Sedan"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Superb",
+        "types": ["Combi", "Sedan"],
+        "audio": {
+          "speakers": 12,
+          "system": "Canton prémiový",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Kodiaq",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 10,
+          "system": "Canton",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Karoq",
+        "types": ["SUV", "Crossover"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Fabia",
+        "types": ["Hatchback", "Combi"],
+        "audio": {
+          "speakers": 6,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "models": [
+      {
+        "name": "Golf",
+        "types": ["Hatchback", "Variant"],
+        "audio": {
+          "speakers": 8,
+          "system": "Beats Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Passat",
+        "types": ["Sedan", "Variant"],
+        "audio": {
+          "speakers": 12,
+          "system": "Dynaudio prémiový",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Tiguan",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 10,
+          "system": "Dynaudio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Touareg",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 14,
+          "system": "Dynaudio Confidence",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Polo",
+        "types": ["Hatchback"],
+        "audio": {
+          "speakers": 6,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel"]
+        }
+      },
+      {
+        "name": "Arteon",
+        "types": ["Sedan", "Shooting Brake"],
+        "audio": {
+          "speakers": 12,
+          "system": "Harman Kardon",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "BMW",
+    "models": [
+      {
+        "name": "3 Series",
+        "types": ["Sedan", "Touring"],
+        "audio": {
+          "speakers": 16,
+          "system": "Harman Kardon Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      },
+      {
+        "name": "5 Series",
+        "types": ["Sedan", "Touring"],
+        "audio": {
+          "speakers": 20,
+          "system": "Bowers & Wilkins Diamond Surround",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "X5",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 20,
+          "system": "Bowers & Wilkins Diamond Surround",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "X3",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 16,
+          "system": "Harman Kardon",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "i4",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 16,
+          "system": "Harman Kardon Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "models": [
+      {
+        "name": "C-Class",
+        "types": ["Sedan", "Estate"],
+        "audio": {
+          "speakers": 13,
+          "system": "Burmester Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      },
+      {
+        "name": "E-Class",
+        "types": ["Sedan", "Estate"],
+        "audio": {
+          "speakers": 23,
+          "system": "Burmester High-End 4D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "S-Class",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 31,
+          "system": "Burmester High-End 4D Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok", "Strešné reproduktory", "Predné sedadlá"]
+        }
+      },
+      {
+        "name": "GLC",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 13,
+          "system": "Burmester Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "GLE",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 23,
+          "system": "Burmester High-End 3D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok", "Strešné reproduktory"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Audi",
+    "models": [
+      {
+        "name": "A4",
+        "types": ["Sedan", "Avant"],
+        "audio": {
+          "speakers": 19,
+          "system": "Bang & Olufsen Premium 3D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "A6",
+        "types": ["Sedan", "Avant"],
+        "audio": {
+          "speakers": 23,
+          "system": "Bang & Olufsen Advanced 3D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "Q5",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 19,
+          "system": "Bang & Olufsen Premium 3D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Zadný riadok", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "Q7",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 23,
+          "system": "Bang & Olufsen Advanced 3D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "e-tron GT",
+        "types": ["Coupe"],
+        "audio": {
+          "speakers": 16,
+          "system": "Bang & Olufsen Premium 3D",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "models": [
+      {
+        "name": "Camry",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 9,
+          "system": "JBL Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "RAV4",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "JBL",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Prius",
+        "types": ["Hatchback"],
+        "audio": {
+          "speakers": 11,
+          "system": "JBL Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Highlander",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "JBL Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Corolla",
+        "types": ["Sedan", "Hatchback", "Touring Sports"],
+        "audio": {
+          "speakers": 6,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Honda",
+    "models": [
+      {
+        "name": "Civic",
+        "types": ["Sedan", "Hatchback"],
+        "audio": {
+          "speakers": 12,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Accord",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 10,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "CR-V",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 9,
+          "system": "Bose",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Pilot",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 11,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "models": [
+      {
+        "name": "Altima",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 8,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Rogue",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Sentra",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 6,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel"]
+        }
+      },
+      {
+        "name": "Murano",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 11,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Ford",
+    "models": [
+      {
+        "name": "Mustang",
+        "types": ["Coupe", "Cabrio"],
+        "audio": {
+          "speakers": 12,
+          "system": "Bang & Olufsen",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "F-150",
+        "types": ["Pickup"],
+        "audio": {
+          "speakers": 18,
+          "system": "Bang & Olufsen Unleashed",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "A-stĺpiky", "Zadná kabína"]
+        }
+      },
+      {
+        "name": "Explorer",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "Bang & Olufsen",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Focus",
+        "types": ["Hatchback", "Sedan"],
+        "audio": {
+          "speakers": 8,
+          "system": "Sony",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Chevrolet",
+    "models": [
+      {
+        "name": "Camaro",
+        "types": ["Coupe", "Cabrio"],
+        "audio": {
+          "speakers": 9,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Silverado",
+        "types": ["Pickup"],
+        "audio": {
+          "speakers": 13,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Zadná kabína"]
+        }
+      },
+      {
+        "name": "Tahoe",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 14,
+          "system": "Bose Centerpoint Surround",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Tretí riadok"]
+        }
+      },
+      {
+        "name": "Malibu",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 8,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Hyundai",
+    "models": [
+      {
+        "name": "Sonata",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 12,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Tucson",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Elantra",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 8,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Santa Fe",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Kia",
+    "models": [
+      {
+        "name": "Optima",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 11,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Sorento",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Sportage",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Stinger",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 15,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "models": [
+      {
+        "name": "Mazda3",
+        "types": ["Sedan", "Hatchback"],
+        "audio": {
+          "speakers": 12,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "CX-5",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 10,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Mazda6",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 11,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "MX-5 Miata",
+        "types": ["Roadster", "Cabrio"],
+        "audio": {
+          "speakers": 9,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Stredový panel", "Subwoofer za sedadlami", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Subaru",
+    "models": [
+      {
+        "name": "Outback",
+        "types": ["SUV", "Crossover"],
+        "audio": {
+          "speakers": 12,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Forester",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "Legacy",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 12,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "models": [
+      {
+        "name": "XC90",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 19,
+          "system": "Bowers & Wilkins Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "XC60",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 15,
+          "system": "Bowers & Wilkins",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "S90",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 19,
+          "system": "Bowers & Wilkins Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "V90",
+        "types": ["Estate"],
+        "audio": {
+          "speakers": 15,
+          "system": "Bowers & Wilkins",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Porsche",
+    "models": [
+      {
+        "name": "911",
+        "types": ["Coupe", "Cabrio"],
+        "audio": {
+          "speakers": 12,
+          "system": "Burmester High-End Surround Sound",
+          "locations": ["Predné dvere", "Zadné panely", "Stredový panel", "Subwoofer v prednej časti", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Cayenne",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 21,
+          "system": "Burmester High-End 3D Surround",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "Panamera",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 21,
+          "system": "Burmester High-End 3D Surround",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "Macan",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 14,
+          "system": "Burmester Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "models": [
+      {
+        "name": "LS",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 23,
+          "system": "Mark Levinson Reference Surround",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory", "Predné sedadlá"]
+        }
+      },
+      {
+        "name": "RX",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 15,
+          "system": "Mark Levinson Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "ES",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 17,
+          "system": "Mark Levinson Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "NX",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 14,
+          "system": "Mark Levinson Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Infiniti",
+    "models": [
+      {
+        "name": "Q50",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 16,
+          "system": "Bose Performance Series",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      },
+      {
+        "name": "QX80",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 17,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Tretí riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Acura",
+    "models": [
+      {
+        "name": "TLX",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 16,
+          "system": "ELS Studio Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      },
+      {
+        "name": "MDX",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 16,
+          "system": "ELS Studio 3D Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Tretí riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Tesla",
+    "models": [
+      {
+        "name": "Model S",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 22,
+          "system": "Tesla Premium Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory", "Stredový reproduktor"]
+        }
+      },
+      {
+        "name": "Model 3",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 15,
+          "system": "Tesla Premium Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Model X",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 17,
+          "system": "Tesla Premium Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Tretí riadok"]
+        }
+      },
+      {
+        "name": "Model Y",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 13,
+          "system": "Tesla Premium Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Genesis",
+    "models": [
+      {
+        "name": "G90",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 17,
+          "system": "Lexicon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "GV80",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 21,
+          "system": "Lexicon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Cadillac",
+    "models": [
+      {
+        "name": "Escalade",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 36,
+          "system": "AKG Studio Reference",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory", "Tretí riadok", "Predné sedadlá"]
+        }
+      },
+      {
+        "name": "CT5",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 15,
+          "system": "AKG Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Lincoln",
+    "models": [
+      {
+        "name": "Navigator",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 20,
+          "system": "Revel Ultima",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory", "Tretí riadok"]
+        }
+      },
+      {
+        "name": "Continental",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 19,
+          "system": "Revel Ultima",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Jaguar",
+    "models": [
+      {
+        "name": "XF",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 17,
+          "system": "Meridian Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "F-PACE",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 17,
+          "system": "Meridian Surround Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "F-TYPE",
+        "types": ["Coupe", "Cabrio"],
+        "audio": {
+          "speakers": 12,
+          "system": "Meridian Surround Sound",
+          "locations": ["Predné dvere", "Zadné panely", "Stredový panel", "Subwoofer za sedadlami", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Land Rover",
+    "models": [
+      {
+        "name": "Range Rover",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 29,
+          "system": "Meridian Signature Sound",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory", "Predné sedadlá"]
+        }
+      },
+      {
+        "name": "Discovery",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 14,
+          "system": "Meridian Sound System",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tretí riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "models": [
+      {
+        "name": "508",
+        "types": ["Sedan", "SW"],
+        "audio": {
+          "speakers": 10,
+          "system": "Focal Premium Hi-Fi",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "3008",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 10,
+          "system": "Focal Premium Hi-Fi",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok"]
+        }
+      },
+      {
+        "name": "5008",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "Focal Premium Hi-Fi",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tretí riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Citroën",
+    "models": [
+      {
+        "name": "C5 X",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 12,
+          "system": "Focal Premium Hi-Fi",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "C4",
+        "types": ["Hatchback"],
+        "audio": {
+          "speakers": 6,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Renault",
+    "models": [
+      {
+        "name": "Megane",
+        "types": ["Hatchback", "Estate"],
+        "audio": {
+          "speakers": 9,
+          "system": "Bose Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Kadjar",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Alfa Romeo",
+    "models": [
+      {
+        "name": "Giulia",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 14,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
+        }
+      },
+      {
+        "name": "Stelvio",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 14,
+          "system": "Harman Kardon Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Ferrari",
+    "models": [
+      {
+        "name": "SF90 Stradale",
+        "types": ["Coupe"],
+        "audio": {
+          "speakers": 12,
+          "system": "JBL Professional Premium",
+          "locations": ["Predné dvere", "Zadné panely", "Stredový panel", "Subwoofer za sedadlami", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Lamborghini",
+    "models": [
+      {
+        "name": "Huracán",
+        "types": ["Coupe", "Cabrio"],
+        "audio": {
+          "speakers": 10,
+          "system": "Bang & Olufsen Premium",
+          "locations": ["Predné dvere", "Zadné panely", "Stredový panel", "Subwoofer za sedadlami", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Maserati",
+    "models": [
+      {
+        "name": "Quattroporte",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 15,
+          "system": "Bowers & Wilkins Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      },
+      {
+        "name": "Levante",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 17,
+          "system": "Bowers & Wilkins Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "BYD",
+    "models": [
+      {
+        "name": "Tang",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "Dynaudio Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      },
+      {
+        "name": "Han",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 12,
+          "system": "Dynaudio Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "NIO",
+    "models": [
+      {
+        "name": "ES8",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 23,
+          "system": "NIO Premium Sound System",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch", "Strešné reproduktory", "Tretí riadok"]
+        }
+      },
+      {
+        "name": "ET7",
+        "types": ["Sedan"],
+        "audio": {
+          "speakers": 23,
+          "system": "NIO Premium Sound System",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Strešné reproduktory"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Geely",
+    "models": [
+      {
+        "name": "Xingyue L",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 12,
+          "system": "BOSE Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Zadný riadok", "Tweeters v stĺpikoch"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Chery",
+    "models": [
+      {
+        "name": "Tiggo 8",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Great Wall",
+    "models": [
+      {
+        "name": "Haval H6",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Infinity Premium",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Dacia",
+    "models": [
+      {
+        "name": "Duster",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 4,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere"]
+        }
+      },
+      {
+        "name": "Sandero",
+        "types": ["Hatchback"],
+        "audio": {
+          "speakers": 4,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Seat",
+    "models": [
+      {
+        "name": "Leon",
+        "types": ["Hatchback", "Sportstourer"],
+        "audio": {
+          "speakers": 8,
+          "system": "Beats Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Ateca",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Beats Audio",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      }
+    ]
+  },
+  {
+    "brand": "Opel",
+    "models": [
+      {
+        "name": "Astra",
+        "types": ["Hatchback", "Sports Tourer"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
+        }
+      },
+      {
+        "name": "Grandland",
+        "types": ["SUV"],
+        "audio": {
+          "speakers": 8,
+          "system": "Štandard",
+          "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Zadný riadok"]
+        }
+      }
+    ]
+  }
+]
