@@ -1,0 +1,45 @@
+# Example OEM Integration config (do not use in production)
+oem:
+  name: sample-oem
+  api_base: "https://api.sample-oem.example"
+  api_token: "${OEM_API_TOKEN}"
+
+bus:
+  interface: "can0"
+  bitrate: 500000
+  mode: "socketcan"   # options: socketcan, vendor
+  filters:
+    - id: 0x7E8
+      mask: 0x7FF
+
+diagnostics:
+  protocol: "uds"
+  tester_present_interval_ms: 2000
+  p2_timeout_ms: 1000
+  p2star_timeout_ms: 5000
+  dids:
+    - id: "0xF190"   # VIN
+    - id: "0xF187"   # ECU SW version
+
+firmware:
+  enabled: true
+  signed_packages_only: true
+  rollback_on_failure: true
+  chunk_size_bytes: 4096
+
+observability:
+  logging:
+    level: "info"
+    format: "json"
+  metrics:
+    enabled: true
+    exporter: "otlp"
+    endpoint: "http://localhost:4317"
+
+security:
+  redact_pii_in_logs: true
+  key_store: "env"   # env, file, hsm
+
+features:
+  enable_doip: false
+  enable_someip: false
