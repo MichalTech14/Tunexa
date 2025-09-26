@@ -1,0 +1,14 @@
+# Example OEM Configuration
+# This is a placeholder configuration file for OEM integration
+
+oem:
+  name: "Example OEM"
+  protocols:
+    - CAN
+    - UDS
+  transport:
+    can:
+      interface: "can0"
+      bitrate: 500000
+    uds:
+      protocol: "CAN"
