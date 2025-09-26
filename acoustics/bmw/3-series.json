@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "metadata": {
+    "name": "BMW 3 Series (Sedan/Touring)",
+    "brand": "BMW",
+    "model": "3 Series",
+    "years": "2019-2024",
+    "source": "Internal measurements / placeholder",
+    "measured_by": "Tunexa",
+    "measured_at": "2025-01-01",
+    "notes": "Premium sedan acoustics with Harman Kardon Surround Sound characteristics."
+  },
+  "cabin": {
+    "type": "sedan",
+    "volume_l": 2850
+  },
+  "nvh": {
+    "idle_dBA": 32,
+    "speed_100kmh_dBA": 62,
+    "noise_profile": ["road", "wind"]
+  },
+  "rt60_ms": {
+    "125": 200,
+    "250": 180,
+    "500": 165,
+    "1000": 150,
+    "2000": 140,
+    "4000": 130
+  },
+  "resonance_modes": [
+    {"freq_Hz": 58, "q": 8.2},
+    {"freq_Hz": 115, "q": 7.1}
+  ],
+  "target_curve": "Harman OE 2019",
+  "mic_positions": [
+    {"name": "driver_ear", "x": 0.45, "y": 0.22, "z": 0.92},
+    {"name": "passenger_ear", "x": -0.45, "y": 0.22, "z": 0.92},
+    {"name": "rear_left", "x": 0.45, "y": -0.75, "z": 0.88},
+    {"name": "rear_right", "x": -0.45, "y": -0.75, "z": 0.88}
+  ],
+  "ir_assets": [
+    {"channel": "driver_L", "url": "assets/ir/bmw/3-series/driver_L.wav"},
+    {"channel": "driver_R", "url": "assets/ir/bmw/3-series/driver_R.wav"},
+    {"channel": "rear_L", "url": "assets/ir/bmw/3-series/rear_L.wav"},
+    {"channel": "rear_R", "url": "assets/ir/bmw/3-series/rear_R.wav"}
+  ],
+  "measured_fr_bands": {
+    "31.5": -2.0,
+    "63": -0.5,
+    "125": 0.8,
+    "250": 1.8,
+    "500": 1.2,
+    "1000": 0.0,
+    "2000": -0.3,
+    "4000": -0.8,
+    "8000": -1.5
+  },
+  "recommended_tuning": {
+    "eq": [
+      {"type": "peaking", "f_Hz": 58, "q": 1.3, "gain_dB": 1.8},
+      {"type": "peaking", "f_Hz": 220, "q": 1.1, "gain_dB": -1.5},
+      {"type": "peaking", "f_Hz": 3200, "q": 2.0, "gain_dB": 0.8},
+      {"type": "shelf_high", "f_Hz": 8000, "q": 0.7, "gain_dB": 1.2}
+    ],
+    "time_alignment_ms": {
+      "FL": 0.00,
+      "FR": 0.12,
+      "RL": 0.95,
+      "RR": 1.02,
+      "C": 0.35,
+      "SUB": 2.45
+    },
+    "crossovers": {
+      "SUB": {"type": "LPF", "f_Hz": 75, "slope_dB_oct": 24},
+      "Mains": {"type": "HPF", "f_Hz": 75, "slope_dB_oct": 24}
+    }
+  }
+}

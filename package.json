@@ -1,0 +1,35 @@
+{
+  "name": "tunexa",
+  "version": "1.0.0",
+  "description": "Inteligent Audio Engine - Modulárny systém pre analýzu, tuning a certifikáciu audio systémov v automobiloch",
+  "main": "index.js",
+  "scripts": {
+    "validate:acoustics": "npx tsx scripts/validate-acoustics.ts",
+    "test": "echo \"No tests defined yet\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichalTech14/Tunexa.git"
+  },
+  "keywords": [
+    "audio",
+    "automotive",
+    "tuning",
+    "acoustics",
+    "car-audio"
+  ],
+  "author": "MichalTech14",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MichalTech14/Tunexa/issues"
+  },
+  "homepage": "https://github.com/MichalTech14/Tunexa#readme",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "glob": "^10.3.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

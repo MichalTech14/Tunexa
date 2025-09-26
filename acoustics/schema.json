@@ -1,0 +1,264 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vehicle Acoustics Data",
+  "type": "object",
+  "required": ["version", "metadata"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "description": "Schema version for future compatibility",
+      "minimum": 1
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the vehicle model"
+        },
+        "brand": {
+          "type": "string",
+          "description": "Vehicle brand name"
+        },
+        "model": {
+          "type": "string",
+          "description": "Vehicle model name"
+        },
+        "years": {
+          "type": "string",
+          "description": "Production years range (e.g., '2013-2020')"
+        },
+        "source": {
+          "type": "string",
+          "description": "Source of the acoustics data"
+        },
+        "measured_by": {
+          "type": "string",
+          "description": "Organization that performed the measurements"
+        },
+        "measured_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when measurements were taken (ISO 8601)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes about the data"
+        }
+      }
+    },
+    "cabin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["sedan", "hatchback", "suv", "coupe", "cabrio", "pickup", "van"],
+          "description": "Cabin type classification"
+        },
+        "volume_l": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Cabin volume in liters"
+        }
+      }
+    },
+    "nvh": {
+      "type": "object",
+      "description": "Noise, Vibration, and Harshness characteristics",
+      "additionalProperties": false,
+      "properties": {
+        "idle_dBA": {
+          "type": "number",
+          "description": "Noise level at idle in dBA"
+        },
+        "speed_100kmh_dBA": {
+          "type": "number",
+          "description": "Noise level at 100 km/h in dBA"
+        },
+        "noise_profile": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["road", "wind", "engine", "hvac", "electrical"]
+          },
+          "description": "Primary noise sources"
+        }
+      }
+    },
+    "rt60_ms": {
+      "type": "object",
+      "description": "Reverberation time (RT60) in milliseconds per frequency band",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(31\\.5|63|125|250|500|1000|2000|4000|8000|16000)$": {
+          "type": "number",
+          "minimum": 0,
+          "description": "RT60 value in milliseconds"
+        }
+      }
+    },
+    "resonance_modes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["freq_Hz", "q"],
+        "additionalProperties": false,
+        "properties": {
+          "freq_Hz": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Resonance frequency in Hz"
+          },
+          "q": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Quality factor (Q)"
+          }
+        }
+      },
+      "description": "Cabin resonance modes"
+    },
+    "target_curve": {
+      "type": "string",
+      "description": "Target frequency response curve (e.g., 'Harman OE 2019')"
+    },
+    "mic_positions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "x", "y", "z"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Position identifier"
+          },
+          "x": {
+            "type": "number",
+            "description": "X coordinate in meters (positive = right)"
+          },
+          "y": {
+            "type": "number",
+            "description": "Y coordinate in meters (positive = forward)"
+          },
+          "z": {
+            "type": "number",
+            "description": "Z coordinate in meters (positive = up)"
+          }
+        }
+      },
+      "description": "Microphone measurement positions"
+    },
+    "ir_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["channel", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Audio channel identifier"
+          },
+          "url": {
+            "type": "string",
+            "description": "Relative path to impulse response file"
+          }
+        }
+      },
+      "description": "Impulse response audio assets"
+    },
+    "measured_fr_bands": {
+      "type": "object",
+      "description": "Measured frequency response in dB per third-octave band",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(31\\.5|63|125|250|500|1000|2000|4000|8000|16000)$": {
+          "type": "number",
+          "description": "Response level in dB"
+        }
+      }
+    },
+    "recommended_tuning": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eq": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "f_Hz", "q", "gain_dB"],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["peaking", "shelf_high", "shelf_low", "highpass", "lowpass"],
+                "description": "EQ filter type"
+              },
+              "f_Hz": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Center/cutoff frequency in Hz"
+              },
+              "q": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Quality factor"
+              },
+              "gain_dB": {
+                "type": "number",
+                "description": "Gain in dB"
+              }
+            }
+          },
+          "description": "Recommended equalizer settings"
+        },
+        "time_alignment_ms": {
+          "type": "object",
+          "description": "Time alignment delays in milliseconds per channel",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(FL|FR|RL|RR|SUB|C|SL|SR)$": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Delay in milliseconds"
+            }
+          }
+        },
+        "crossovers": {
+          "type": "object",
+          "description": "Recommended crossover settings",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^.+$": {
+              "type": "object",
+              "required": ["type", "f_Hz", "slope_dB_oct"],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["LPF", "HPF", "BPF"],
+                  "description": "Filter type"
+                },
+                "f_Hz": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Crossover frequency in Hz"
+                },
+                "slope_dB_oct": {
+                  "type": "number",
+                  "enum": [6, 12, 18, 24, 48],
+                  "description": "Filter slope in dB/octave"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

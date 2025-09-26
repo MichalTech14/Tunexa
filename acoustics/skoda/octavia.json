@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "metadata": {
+    "name": "Škoda Octavia (Combi/Sedan)",
+    "brand": "Škoda",
+    "model": "Octavia",
+    "years": "2013-2020",
+    "source": "Internal measurements / placeholder",
+    "measured_by": "Tunexa",
+    "measured_at": "2025-01-01",
+    "notes": "Illustrative sample values for initial integration."
+  },
+  "cabin": {
+    "type": "sedan",
+    "volume_l": 2700
+  },
+  "nvh": {
+    "idle_dBA": 38,
+    "speed_100kmh_dBA": 68,
+    "noise_profile": ["road", "wind"]
+  },
+  "rt60_ms": {
+    "125": 220,
+    "250": 200,
+    "500": 180,
+    "1000": 160,
+    "2000": 150,
+    "4000": 140
+  },
+  "resonance_modes": [
+    {"freq_Hz": 63, "q": 7},
+    {"freq_Hz": 125, "q": 6}
+  ],
+  "target_curve": "Harman OE 2019",
+  "mic_positions": [
+    {"name": "driver_ear", "x": 0.42, "y": 0.20, "z": 0.90},
+    {"name": "passenger_ear", "x": -0.42, "y": 0.20, "z": 0.90}
+  ],
+  "ir_assets": [
+    {"channel": "driver_L", "url": "assets/ir/skoda/octavia/driver_L.wav"},
+    {"channel": "driver_R", "url": "assets/ir/skoda/octavia/driver_R.wav"}
+  ],
+  "measured_fr_bands": {
+    "31.5": -3.0,
+    "63": -1.5,
+    "125": 1.0,
+    "250": 2.0,
+    "500": 1.5,
+    "1000": 0.0,
+    "2000": -0.5,
+    "4000": -1.0,
+    "8000": -2.0
+  },
+  "recommended_tuning": {
+    "eq": [
+      {"type": "peaking", "f_Hz": 63, "q": 1.0, "gain_dB": 2.5},
+      {"type": "peaking", "f_Hz": 250, "q": 1.2, "gain_dB": -2.0},
+      {"type": "shelf_high", "f_Hz": 6000, "q": 0.7, "gain_dB": 1.5}
+    ],
+    "time_alignment_ms": {
+      "FL": 0.00,
+      "FR": 0.10,
+      "RL": 0.85,
+      "RR": 0.90,
+      "SUB": 2.30
+    },
+    "crossovers": {
+      "SUB": {"type": "LPF", "f_Hz": 80, "slope_dB_oct": 24},
+      "Mains": {"type": "HPF", "f_Hz": 80, "slope_dB_oct": 24}
+    }
+  }
+}

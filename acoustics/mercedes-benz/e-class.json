@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "metadata": {
+    "name": "Mercedes-Benz E-Class (Sedan/Estate)",
+    "brand": "Mercedes-Benz",
+    "model": "E-Class",
+    "years": "2020-2024",
+    "source": "Internal measurements / placeholder",
+    "measured_by": "Tunexa",
+    "measured_at": "2025-01-01",
+    "notes": "Luxury sedan acoustics with Burmester High-End 4D system characteristics."
+  },
+  "cabin": {
+    "type": "sedan",
+    "volume_l": 3100
+  },
+  "nvh": {
+    "idle_dBA": 30,
+    "speed_100kmh_dBA": 60,
+    "noise_profile": ["road", "wind"]
+  },
+  "rt60_ms": {
+    "125": 195,
+    "250": 175,
+    "500": 160,
+    "1000": 145,
+    "2000": 135,
+    "4000": 125
+  },
+  "resonance_modes": [
+    {"freq_Hz": 55, "q": 9.1},
+    {"freq_Hz": 110, "q": 8.3},
+    {"freq_Hz": 165, "q": 6.8}
+  ],
+  "target_curve": "Burmester Reference 2021",
+  "mic_positions": [
+    {"name": "driver_ear", "x": 0.48, "y": 0.25, "z": 0.95},
+    {"name": "passenger_ear", "x": -0.48, "y": 0.25, "z": 0.95},
+    {"name": "rear_left", "x": 0.48, "y": -0.80, "z": 0.90},
+    {"name": "rear_right", "x": -0.48, "y": -0.80, "z": 0.90}
+  ],
+  "ir_assets": [
+    {"channel": "driver_L", "url": "assets/ir/mercedes-benz/e-class/driver_L.wav"},
+    {"channel": "driver_R", "url": "assets/ir/mercedes-benz/e-class/driver_R.wav"},
+    {"channel": "rear_L", "url": "assets/ir/mercedes-benz/e-class/rear_L.wav"},
+    {"channel": "rear_R", "url": "assets/ir/mercedes-benz/e-class/rear_R.wav"},
+    {"channel": "center", "url": "assets/ir/mercedes-benz/e-class/center.wav"},
+    {"channel": "overhead_L", "url": "assets/ir/mercedes-benz/e-class/overhead_L.wav"},
+    {"channel": "overhead_R", "url": "assets/ir/mercedes-benz/e-class/overhead_R.wav"}
+  ],
+  "measured_fr_bands": {
+    "31.5": -1.5,
+    "63": 0.0,
+    "125": 0.5,
+    "250": 1.2,
+    "500": 0.8,
+    "1000": 0.0,
+    "2000": -0.2,
+    "4000": -0.5,
+    "8000": -1.0
+  },
+  "recommended_tuning": {
+    "eq": [
+      {"type": "peaking", "f_Hz": 55, "q": 1.5, "gain_dB": 1.5},
+      {"type": "peaking", "f_Hz": 180, "q": 1.0, "gain_dB": -1.2},
+      {"type": "peaking", "f_Hz": 2800, "q": 1.8, "gain_dB": 0.5},
+      {"type": "shelf_high", "f_Hz": 10000, "q": 0.6, "gain_dB": 1.0}
+    ],
+    "time_alignment_ms": {
+      "FL": 0.00,
+      "FR": 0.15,
+      "RL": 1.05,
+      "RR": 1.15,
+      "C": 0.40,
+      "SL": 0.85,
+      "SR": 0.95,
+      "SUB": 2.60
+    },
+    "crossovers": {
+      "SUB": {"type": "LPF", "f_Hz": 70, "slope_dB_oct": 24},
+      "Mains": {"type": "HPF", "f_Hz": 70, "slope_dB_oct": 24}
+    }
+  }
+}
