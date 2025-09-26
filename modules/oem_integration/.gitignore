@@ -1,0 +1,4 @@
+# OEM Integration local ignores
+logs/
+config/local.yml
+*.log

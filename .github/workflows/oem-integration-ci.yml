@@ -1,0 +1,26 @@
+name: OEM Integration CI
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check core files exist
+        run: |
+          test -f modules/oem_integration/README.md
+          test -f modules/oem_integration/config/example-oem.yml
+          echo "OEM Integration scaffolding check passed."
+
+      - name: List module tree (debug)
+        run: |
+          ls -la modules/oem_integration || true
+          ls -la modules/oem_integration/docs || true
+          ls -la modules/oem_integration/tests || true
