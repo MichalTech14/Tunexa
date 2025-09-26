@@ -9,7 +9,8 @@
           "speakers": 8,
           "system": "Štandard",
           "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
-        }
+        },
+        "acoustics": "acoustics/skoda/octavia.json"
       },
       {
         "name": "Superb",
@@ -59,7 +60,8 @@
           "speakers": 8,
           "system": "Beats Audio",
           "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri"]
-        }
+        },
+        "acoustics": "acoustics/volkswagen/golf.json"
       },
       {
         "name": "Passat",
@@ -118,7 +120,8 @@
           "speakers": 16,
           "system": "Harman Kardon Surround Sound",
           "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor"]
-        }
+        },
+        "acoustics": "acoustics/bmw/3-series.json"
       },
       {
         "name": "5 Series",
@@ -177,7 +180,8 @@
           "speakers": 23,
           "system": "Burmester High-End 4D",
           "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch", "Stredový reproduktor", "Zadný riadok", "Strešné reproduktory"]
-        }
+        },
+        "acoustics": "acoustics/mercedes-benz/e-class.json"
       },
       {
         "name": "S-Class",
@@ -815,7 +819,8 @@
           "speakers": 15,
           "system": "Tesla Premium Audio",
           "locations": ["Predné dvere", "Zadné dvere", "Stredový panel", "Subwoofer v kufri", "Tweeters v stĺpikoch"]
-        }
+        },
+        "acoustics": "acoustics/tesla/model-3.json"
       },
       {
         "name": "Model X",
