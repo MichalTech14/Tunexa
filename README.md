@@ -11,9 +11,21 @@ Tunexa je modulárny systém pre analýzu, tuning a certifikáciu audio systémo
 - **AI Background Listener** – neustále sledovanie prostredia a reakcia na spúšťače
 
 ## Ako začať
-1. Pozri dokumentáciu v adresári `docs/`.
-2. Každý modul má vlastné README s detailným popisom workflowu a API.
-3. Pripravujeme ukážkové implementácie v adresári `modules/`.
+1. Nainštaluj závislosti a spusti lokálny server s ukážkou:
+	- Dev server: spustí bundler vo watch režime a server na http://localhost:8080
+   
+	Príkazy:
+   
+	- `npm install`
+	- `npm run dev`
+   
+	Následne otvor index na adrese: http://localhost:8080
+
+2. Build jednorazovo (výstup do `dist/`):
+	- `npm run build`
+
+3. Každý modul má vlastné README s detailným popisom workflowu a API v `modules/`.
+4. Dokumentáciu nájdeš v adresári `docs/`.
 
 ## Príspevky a vývoj
 - Používaj issues na návrhy, bugy, nápady!

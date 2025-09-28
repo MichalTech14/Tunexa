@@ -104,5 +104,10 @@
             <p>© 2025 MichalTech14 | MIT License</p>
         </footer>
     </div>
+    <!-- Optional demo script; built by esbuild into dist/main.js -->
+    <script type="module">
+        // Try to load the demo bundle if it exists during dev
+        import('/dist/main.js').catch(() => {/* no-op if not built */});
+    </script>
 </body>
 </html>

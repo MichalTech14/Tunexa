@@ -1,0 +1,18 @@
+{
+  "name": "tunexa",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tunexa – Inteligent Audio Engine (modular demo + docs)",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild web/main.ts --bundle --outdir=dist --format=esm --sourcemap",
+    "build:watch": "esbuild web/main.ts --bundle --outdir=dist --format=esm --sourcemap=inline --watch",
+    "serve": "http-server -c-1 -p 8080 .",
+    "dev": "concurrently -k -n BUILD,WEB \"npm:build:watch\" \"npm:serve\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.24.0",
+    "http-server": "^14.1.1"
+  }
+}
