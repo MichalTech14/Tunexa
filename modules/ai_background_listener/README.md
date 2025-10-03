@@ -1,5 +1,5 @@
 # AI Background Listener Module
-
+python modules/ai_background_listener/phones_auto_init.py
 ## Purpose
 
 Continuously monitors audio environment in vehicle for trigger phrases, anomaly detection, and context-aware actions. Powered by on-device and cloud AI models.
