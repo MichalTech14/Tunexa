@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>🎙️ Speakers Manager</title>
+  <style>
+    body{background:#764ba2;color:white;font-family:Arial;padding:20px}
+    .box{background:rgba(255,255,255,0.15);padding:20px;margin:10px;border-radius:10px}
+    .btn{background:rgba(255,255,255,0.3);color:white;padding:10px;border:none;border-radius:5px;cursor:pointer;margin:5px}
+    .btn:hover{background:rgba(255,255,255,0.5)}
+    input, select{padding:8px;border-radius:6px;border:none;margin:4px}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.2)}
+    a{color:#fff}
+  </style>
+</head>
+<body>
+  <a href="/dashboard">← Back to Dashboard</a>
+  <h1>🎙️ Vehicle Speakers Manager</h1>
+  <div class="box">
+    <h3>Add / Update Entry</h3>
+    <div>
+      <input id="vehicleType" placeholder="Vehicle Type (e.g., BMW)" />
+      <input id="model" placeholder="Model (e.g., 3 Series)" />
+      <input id="speakerType" placeholder="Speaker Type (e.g., Harman)" />
+      <input id="speakerCount" type="number" min="0" placeholder="Count" />
+      <input id="notes" placeholder="Notes (optional)" />
+      <button class="btn" onclick="createEntry()">Save</button>
+    </div>
+  </div>
+  <div class="box">
+    <h3>Entries</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Type</th><th>Model</th><th>Speaker</th><th>Count</th><th>Actions</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <script>
+    const API = window.location.origin + '/api/vehicle-speakers';
+    async function load(){
+      const r = await fetch(API); const data = await r.json();
+      const tbody = document.getElementById('rows'); tbody.innerHTML = '';
+      data.entries.forEach(e => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td>'+e.id+'</td>'+'<td>'+e.vehicleType+'</td>'+'<td>'+e.model+'</td>'+'<td>'+e.speakerType+'</td>'+'<td>'+e.speakerCount+'</td>'+'<td>'+
+          '<button class="btn" onclick="editEntry(\''+e.id+'\')">Edit</button> '+
+          '<button class="btn" onclick="delEntry(\''+e.id+'\')">Delete</button>'+
+        '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+    async function createEntry(){
+      const vehicleType = (document.getElementById('vehicleType').value||'').trim();
+      const model = (document.getElementById('model').value||'').trim();
+      const speakerType = (document.getElementById('speakerType').value||'').trim();
+      const speakerCount = Number(document.getElementById('speakerCount').value||0);
+      const notes = (document.getElementById('notes').value||'').trim();
+      if(!vehicleType||!model||!speakerType){alert('Please fill required fields');return}
+      const res = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({vehicleType,model,speakerType,speakerCount,notes})});
+      if(!res.ok){const t=await res.text();alert('Error: '+t);return}
+      await load();
+    }
+    async function editEntry(id){
+      const newType = prompt('New speaker type (leave blank to keep)');
+      const newCountStr = prompt('New speaker count (leave blank to keep)');
+      const payload = {}; if(newType) payload.speakerType=newType; if(newCountStr) payload.speakerCount=Number(newCountStr);
+      const res = await fetch(API+'/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!res.ok){const t=await res.text();alert('Error: '+t);return}
+      await load();
+    }
+    async function delEntry(id){
+      if(!confirm('Delete '+id+'?')) return;
+      const res = await fetch(API+'/'+id,{method:'DELETE'});
+      if(!res.ok){const t=await res.text();alert('Error: '+t);return}
+      await load();
+    }
+    load();
+  </script>
+</body>
+</html>
