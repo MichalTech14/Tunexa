@@ -32,52 +32,122 @@ body{background:#667eea;color:white;font-family:Arial;padding:20px}
 </div>
 
 <div class="box">
-<h3>Links</h3>
-<a href="http://localhost:3000/" target="_blank" style="color:white">API Root</a> |
-<a href="http://localhost:3000/health" target="_blank" style="color:white">Health</a>
+<h3>📊 Quick Links</h3>
+<a href="/" target="_blank" style="color:white;text-decoration:none;">🏠 API Root</a> |
+<a href="/api/health" target="_blank" style="color:white;text-decoration:none;">💚 Health</a> |
+<a href="/api/cars" target="_blank" style="color:white;text-decoration:none;">🚗 Cars</a> |
+<a href="/api/status" target="_blank" style="color:white;text-decoration:none;">📊 Status</a>
+</div>
+
+<div class="box">
+<h3>🎵 Test Live API</h3>
+<button class="btn" onclick="testCarList()">List Cars (119)</button>
+<button class="btn" onclick="testComparison()">Compare Vehicles</button>
+<div id="apiResult" style="margin-top:10px;font-size:12px;max-height:300px;overflow:auto;"></div>
 </div>
 
 <script>
+async function testCarList() {
+  document.getElementById('apiResult').innerHTML = 'Loading...';
+  try {
+    const res = await fetch(`${API_BASE}/api/cars`);
+    const data = await res.json();
+    const cars = data.cars.slice(0, 5);
+    let html = `<div style="background:rgba(0,255,0,0.2);padding:10px;border-radius:5px">`;
+    html += `<strong>✅ Total Cars:</strong> ${data.count}<br><br>`;
+    html += `<strong>First 5 cars:</strong><br>`;
+    cars.forEach(car => {
+      html += `• ${car.brand} ${car.name} (${car.audio?.speakers || 'N/A'} speakers)<br>`;
+    });
+    html += '</div>';
+    document.getElementById('apiResult').innerHTML = html;
+  } catch(e) {
+    document.getElementById('apiResult').innerHTML = 
+      `<div style="background:rgba(255,0,0,0.2);padding:10px;border-radius:5px">❌ Error: ${e.message}</div>`;
+  }
+}
+
+async function testComparison() {
+  document.getElementById('apiResult').innerHTML = 'Comparing...';
+  try {
+    const res = await fetch(`${API_BASE}/api/compare?car1=bmw-3-series&car2=mercedes-benz-e-class`);
+    const data = await res.json();
+    let html = `<div style="background:rgba(0,255,0,0.2);padding:10px;border-radius:5px">`;
+    html += `<strong>✅ Comparison Results:</strong><br><br>`;
+    html += `<strong>${data.car1?.brand} ${data.car1?.name}</strong> vs <strong>${data.car2?.brand} ${data.car2?.name}</strong><br><br>`;
+    html += `Performance: ${data.comparison?.performance?.horsepower || 'N/A'}<br>`;
+    html += `Price: ${data.comparison?.price || 'N/A'}<br>`;
+    html += `Audio Score: ${data.comparison?.audio?.score || 'N/A'}`;
+    html += '</div>';
+    document.getElementById('apiResult').innerHTML = html;
+  } catch(e) {
+    document.getElementById('apiResult').innerHTML = 
+      `<div style="background:rgba(255,0,0,0.2);padding:10px;border-radius:5px">❌ Error: ${e.message}</div>`;
+  }
+}
+</script>
+
+<script>
+// Auto-detect API base URL (works in Codespaces and localhost)
+const API_BASE = window.location.origin;
+
 async function checkHealth() {
   try {
-    const res = await fetch('http://localhost:3000/health');
+    const res = await fetch(`${API_BASE}/api/health`);
     const data = await res.json();
-    document.getElementById('status').innerHTML = '✅ ' + data.status;
+    document.getElementById('status').innerHTML = '✅ ' + data.status.toUpperCase();
+    document.getElementById('status').style.color = '#00ff00';
   } catch(e) {
-    document.getElementById('status').innerHTML = '❌ Error';
+    document.getElementById('status').innerHTML = '❌ Error: ' + e.message;
+    document.getElementById('status').style.color = '#ff0000';
   }
 }
 
 async function testCert() {
+  document.getElementById('certResult').innerHTML = 'Testing...';
   try {
-    const res = await fetch('http://localhost:3000/api/audio-certification/certify', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({vehicle: 'BMW 3 Series'})
-    });
+    const res = await fetch(`${API_BASE}/api/certify/bmw-3-series`);
     const data = await res.json();
-    document.getElementById('certResult').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+    document.getElementById('certResult').innerHTML = 
+      '<div style="background:rgba(0,255,0,0.2);padding:10px;border-radius:5px;margin-top:10px">' +
+      '<strong>✅ Status:</strong> ' + data.status + '<br>' +
+      '<strong>Score:</strong> ' + data.score + '<br>' +
+      '<strong>Certificate:</strong> ' + data.certificateId + '<br>' +
+      '<strong>Vehicle:</strong> ' + data.carName +
+      '</div>';
   } catch(e) {
-    document.getElementById('certResult').innerHTML = 'Error: ' + e.message;
+    document.getElementById('certResult').innerHTML = 
+      '<div style="background:rgba(255,0,0,0.2);padding:10px;border-radius:5px;margin-top:10px">' +
+      '❌ Error: ' + e.message +
+      '</div>';
   }
 }
 
 async function testOEM() {
+  document.getElementById('oemResult').innerHTML = 'Connecting...';
   try {
-    const res = await fetch('http://localhost:3000/api/oem-integration/connect', {
+    const res = await fetch(`${API_BASE}/api/oem-integration/connect`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({protocol: 'CAN-FD'})
     });
     const data = await res.json();
-    document.getElementById('oemResult').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+    document.getElementById('oemResult').innerHTML = 
+      '<div style="background:rgba(0,255,0,0.2);padding:10px;border-radius:5px;margin-top:10px">' +
+      '<strong>✅ Connected:</strong> ' + data.connected + '<br>' +
+      '<strong>Protocol:</strong> ' + data.protocol + '<br>' +
+      '<strong>Device ID:</strong> ' + data.deviceId +
+      '</div>';
   } catch(e) {
-    document.getElementById('oemResult').innerHTML = 'Error: ' + e.message;
+    document.getElementById('oemResult').innerHTML = 
+      '<div style="background:rgba(255,0,0,0.2);padding:10px;border-radius:5px;margin-top:10px">' +
+      '❌ Error: ' + e.message +
+      '</div>';
   }
 }
 
 // Auto-check health on load
-checkHealth();
+setTimeout(checkHealth, 500);
 </script>
 
 </body>

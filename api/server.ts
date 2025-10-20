@@ -302,8 +302,15 @@ app.post('/api/profile-lock-continuity/save', (req, res) => {
   });
 });
 
-// Root endpoint
+// Root endpoint - redirect to dashboard
 app.get('/', (req, res) => {
+  // If browser request, redirect to dashboard
+  const acceptHeader = req.get('Accept') || '';
+  if (acceptHeader.includes('text/html')) {
+    return res.redirect('/dashboard');
+  }
+  
+  // If API request, show JSON info
   res.json({
     message: 'Tunexa Intelligent Audio Engine API',
     version: '1.0.0',
