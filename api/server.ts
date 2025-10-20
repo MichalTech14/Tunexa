@@ -64,6 +64,295 @@ app.get('/ui', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'public', 'simple.html'));
 });
 
+// Cars Browser - Beautiful HTML visualization
+app.get('/cars', (req, res) => {
+  if (!tunexaEngine) {
+    return res.status(503).send('Engine not initialized');
+  }
+  
+  const cars = getAllCars();
+  const brands = [...new Set(cars.map(c => c.brand))].sort();
+  
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>🚗 Tunexa Cars Database (${cars.length})</title>
+      <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { 
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: white;
+          padding: 20px;
+          min-height: 100vh;
+        }
+        .header {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+        .header h1 {
+          font-size: 3em;
+          margin-bottom: 10px;
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .stats {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin: 20px 0;
+          flex-wrap: wrap;
+        }
+        .stat-box {
+          background: rgba(255,255,255,0.2);
+          padding: 15px 30px;
+          border-radius: 15px;
+          backdrop-filter: blur(10px);
+        }
+        .stat-box .number {
+          font-size: 2.5em;
+          font-weight: bold;
+        }
+        .stat-box .label {
+          font-size: 0.9em;
+          opacity: 0.9;
+        }
+        .controls {
+          max-width: 1200px;
+          margin: 0 auto 30px;
+          display: flex;
+          gap: 15px;
+          align-items: center;
+          flex-wrap: wrap;
+          background: rgba(255,255,255,0.1);
+          padding: 20px;
+          border-radius: 15px;
+        }
+        .search-box {
+          flex: 1;
+          min-width: 250px;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 25px;
+          font-size: 16px;
+          background: rgba(255,255,255,0.9);
+        }
+        .filter-btn {
+          padding: 12px 25px;
+          border: 2px solid white;
+          background: transparent;
+          color: white;
+          border-radius: 25px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+          background: white;
+          color: #667eea;
+        }
+        .cars-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 20px;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+        .car-card {
+          background: rgba(255,255,255,0.15);
+          border-radius: 15px;
+          padding: 20px;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s;
+          cursor: pointer;
+          border: 2px solid transparent;
+        }
+        .car-card:hover {
+          transform: translateY(-5px);
+          background: rgba(255,255,255,0.25);
+          border-color: rgba(255,255,255,0.5);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .car-brand {
+          font-size: 0.9em;
+          opacity: 0.8;
+          margin-bottom: 5px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .car-name {
+          font-size: 1.5em;
+          font-weight: bold;
+          margin-bottom: 15px;
+        }
+        .car-details {
+          display: grid;
+          gap: 8px;
+          font-size: 0.9em;
+        }
+        .car-detail {
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .car-detail:last-child {
+          border-bottom: none;
+        }
+        .badge {
+          display: inline-block;
+          padding: 4px 12px;
+          background: rgba(255,255,255,0.3);
+          border-radius: 12px;
+          font-size: 0.85em;
+          margin-top: 10px;
+        }
+        .back-btn {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          padding: 12px 25px;
+          background: rgba(255,255,255,0.2);
+          border: 2px solid white;
+          color: white;
+          text-decoration: none;
+          border-radius: 25px;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s;
+        }
+        .back-btn:hover {
+          background: white;
+          color: #667eea;
+        }
+        .no-results {
+          text-align: center;
+          padding: 50px;
+          font-size: 1.5em;
+          opacity: 0.7;
+        }
+      </style>
+    </head>
+    <body>
+      <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+      
+      <div class="header">
+        <h1>🚗 Tunexa Cars Database</h1>
+        <p>Intelligent Audio Systems Catalog</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="number" id="totalCars">${cars.length}</div>
+          <div class="label">Total Vehicles</div>
+        </div>
+        <div class="stat-box">
+          <div class="number">${brands.length}</div>
+          <div class="label">Brands</div>
+        </div>
+        <div class="stat-box">
+          <div class="number" id="visibleCars">${cars.length}</div>
+          <div class="label">Showing</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search by brand, model, or features..." />
+        <button class="filter-btn active" onclick="filterByBrand('all')">All Brands</button>
+        ${brands.slice(0, 5).map(brand => 
+          `<button class="filter-btn" onclick="filterByBrand('${brand}')">${brand}</button>`
+        ).join('')}
+      </div>
+
+      <div class="cars-grid" id="carsGrid">
+        ${cars.map(car => `
+          <div class="car-card" data-brand="${car.brand}" data-name="${car.name}" data-id="${car.id}">
+            <div class="car-brand">${car.brand}</div>
+            <div class="car-name">${car.name}</div>
+            <div class="car-details">
+              ${car.audio?.speakers ? `
+                <div class="car-detail">
+                  <span>🔊 Speakers</span>
+                  <span><strong>${car.audio.speakers}</strong></span>
+                </div>` : ''}
+              ${car.audio?.amplifier ? `
+                <div class="car-detail">
+                  <span>🎛️ Amplifier</span>
+                  <span>${car.audio.amplifier}</span>
+                </div>` : ''}
+              ${car.price ? `
+                <div class="car-detail">
+                  <span>💰 Price</span>
+                  <span>${car.price}</span>
+                </div>` : ''}
+              ${car.audioScore ? `
+                <div class="car-detail">
+                  <span>⭐ Audio Score</span>
+                  <span><strong>${car.audioScore}/100</strong></span>
+                </div>` : ''}
+            </div>
+            ${car.audio?.brand ? `<span class="badge">🎵 ${car.audio.brand}</span>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      
+      <div class="no-results" id="noResults" style="display:none;">
+        😕 No cars found matching your search
+      </div>
+
+      <script>
+        let currentFilter = 'all';
+        
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+          filterCars(e.target.value, currentFilter);
+        });
+
+        function filterByBrand(brand) {
+          currentFilter = brand;
+          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+          event.target.classList.add('active');
+          const searchText = document.getElementById('searchBox').value;
+          filterCars(searchText, brand);
+        }
+
+        function filterCars(searchText, brand) {
+          const cards = document.querySelectorAll('.car-card');
+          let visibleCount = 0;
+          
+          cards.forEach(card => {
+            const cardBrand = card.dataset.brand;
+            const cardName = card.dataset.name;
+            const matchesSearch = searchText === '' || 
+              cardBrand.toLowerCase().includes(searchText.toLowerCase()) ||
+              cardName.toLowerCase().includes(searchText.toLowerCase()) ||
+              card.textContent.toLowerCase().includes(searchText.toLowerCase());
+            const matchesBrand = brand === 'all' || cardBrand === brand;
+            
+            if (matchesSearch && matchesBrand) {
+              card.style.display = 'block';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          document.getElementById('visibleCars').textContent = visibleCount;
+          document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Add click handler for car cards
+        document.querySelectorAll('.car-card').forEach(card => {
+          card.addEventListener('click', function() {
+            const carId = this.dataset.id;
+            window.location.href = '/api/certify/' + carId;
+          });
+        });
+      </script>
+    </body>
+    </html>
+  `);
+});
+
 // Simple test route
 app.get('/test', (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
