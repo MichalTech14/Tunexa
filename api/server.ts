@@ -101,15 +101,29 @@ app.get('/api/health', (req, res) => {
 // ==================== TUNEXA API ENDPOINTS - REAL-TIME OPTIMIZED ====================
 
 // Helper functions for car database
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function getAllCars() {
   const allCars: any[] = [];
   tunexaEngine.carsDatabase.forEach((brand: any) => {
     if (brand.models) {
       brand.models.forEach((car: any) => {
+        const brandSlug = slugify(brand.brand);
+        const modelSlug = slugify(car.name);
         allCars.push({
           ...car,
+          id: `${brandSlug}-${modelSlug}`,
           brand: brand.brand,
-          brandId: brand.id
+          brandId: brand.id,
+          brandSlug: brandSlug,
+          modelSlug: modelSlug
         });
       });
     }
@@ -118,20 +132,8 @@ function getAllCars() {
 }
 
 function findCarById(carId: string) {
-  for (const brand of tunexaEngine.carsDatabase) {
-    if (brand.models) {
-      for (const car of brand.models) {
-        if (car.id === carId) {
-          return {
-            ...car,
-            brand: brand.brand,
-            brandId: brand.id
-          };
-        }
-      }
-    }
-  }
-  return null;
+  const allCars = getAllCars();
+  return allCars.find(car => car.id === carId) || null;
 }
 
 // Get all cars - CACHED for performance
@@ -148,14 +150,14 @@ app.get('/api/cars', (req, res) => {
 });
 
 // Get specific car details
-app.get('/api/cars/:brand/:model', async (req, res) => {
+app.get('/api/cars/:brand/:model', (req, res) => {
   if (!tunexaEngine) {
     return res.status(503).json({ error: 'Engine not initialized' });
   }
   
   const { brand, model } = req.params;
   const carId = `${brand}-${model}`;
-  const car = await tunexaEngine.findVehicleById(carId);
+  const car = findCarById(carId);
   
   if (!car) {
     return res.status(404).json({ error: 'Car not found' });
@@ -165,7 +167,7 @@ app.get('/api/cars/:brand/:model', async (req, res) => {
 });
 
 // Compare two cars - REAL-TIME ANALYSIS
-app.get('/api/compare', async (req, res) => {
+app.get('/api/compare', (req, res) => {
   if (!tunexaEngine) {
     return res.status(503).json({ error: 'Engine not initialized' });
   }
@@ -177,8 +179,8 @@ app.get('/api/compare', async (req, res) => {
   }
   
   try {
-    const vehicle1 = await tunexaEngine.findVehicleById(car1 as string);
-    const vehicle2 = await tunexaEngine.findVehicleById(car2 as string);
+    const vehicle1 = findCarById(car1 as string);
+    const vehicle2 = findCarById(car2 as string);
     
     if (!vehicle1 || !vehicle2) {
       return res.status(404).json({ error: 'One or both cars not found' });
@@ -189,46 +191,47 @@ app.get('/api/compare', async (req, res) => {
       car2: vehicle2,
       comparison: {
         performance: {
-          horsepower: `${vehicle1.horsepower} vs ${vehicle2.horsepower}`,
-          torque: `${vehicle1.torque} vs ${vehicle2.torque}`
+          horsepower: `${vehicle1.horsepower || 'N/A'} vs ${vehicle2.horsepower || 'N/A'}`,
+          torque: `${vehicle1.torque || 'N/A'} vs ${vehicle2.torque || 'N/A'}`
         },
-        audio: vehicle1.acoustics && vehicle2.acoustics ? {
-          speakers: `${vehicle1.acoustics.audio_system?.speakers || 'N/A'} vs ${vehicle2.acoustics.audio_system?.speakers || 'N/A'}`,
-          system: `${vehicle1.acoustics.audio_system?.system || 'N/A'} vs ${vehicle2.acoustics.audio_system?.system || 'N/A'}`
-        } : null
+        price: `${vehicle1.price || 'N/A'} vs ${vehicle2.price || 'N/A'}`,
+        audio: {
+          score: `${vehicle1.audioScore || 'N/A'} vs ${vehicle2.audioScore || 'N/A'}`
+        }
       }
     });
   } catch (error) {
-    res.status(500).json({ error: 'Comparison failed' });
+    res.status(500).json({ error: 'Comparison failed', details: String(error) });
   }
 });
 
 // Audio certification - PERFORMANCE CRITICAL
-app.get('/api/certify/:carId', async (req, res) => {
+app.get('/api/certify/:carId', (req, res) => {
   if (!tunexaEngine) {
     return res.status(503).json({ error: 'Engine not initialized' });
   }
   
   const { carId } = req.params;
-  const car = await tunexaEngine.findVehicleById(carId);
+  const car = findCarById(carId);
   
   if (!car) {
     return res.status(404).json({ error: 'Car not found' });
   }
   
-  // Simple certification result
-  const hasAcoustics = !!car.acoustics;
+  // Simple certification result based on available data
+  const hasAudioScore = car.audioScore !== undefined;
   const certResult = {
-    status: hasAcoustics ? 'CERTIFIED' : 'PENDING',
-    score: hasAcoustics ? 95 : 0,
+    status: hasAudioScore ? 'CERTIFIED' : 'PENDING',
+    score: hasAudioScore ? car.audioScore : 0,
     certificateId: `TUNEXA-${Date.now()}-${carId}`,
     carId: carId,
     carName: `${car.brand} ${car.model}`,
     timestamp: new Date().toISOString(),
-    details: hasAcoustics ? {
-      speakers: car.acoustics.audio_system?.speakers,
-      system: car.acoustics.audio_system?.system
-    } : null
+    details: {
+      brand: car.brand,
+      model: car.model,
+      audioScore: car.audioScore
+    }
   };
   
   res.json(certResult);
