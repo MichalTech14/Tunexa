@@ -35,6 +35,13 @@
       <tbody id="rows"></tbody>
     </table>
   </div>
+  <div class="box">
+    <h3>Bulk Import (paste JSON from Python)</h3>
+    <p style="opacity:0.9;font-size:12px">Očakáva sa objekt tvaru: { "BMW": { "X5": [ { "premiovy_system": "Harman", "pocet_reproduktorov": 16 } ] } }</p>
+    <textarea id="importJson" style="width:100%;height:120px;border-radius:6px;border:none;padding:10px"></textarea><br/>
+    <button class="btn" onclick="doImport()">Import JSON → DB</button>
+    <pre id="importResult" style="white-space:pre-wrap;background:rgba(0,0,0,0.3);padding:10px;border-radius:8px;margin-top:8px"></pre>
+  </div>
   <script>
     const API = window.location.origin + '/api/vehicle-speakers';
     async function load(){
@@ -73,6 +80,14 @@
       const res = await fetch(API+'/'+id,{method:'DELETE'});
       if(!res.ok){const t=await res.text();alert('Error: '+t);return}
       await load();
+    }
+    async function doImport(){
+      const txt = document.getElementById('importJson').value || '';
+      let obj; try { obj = JSON.parse(txt) } catch(e){ document.getElementById('importResult').textContent = 'Invalid JSON: '+e.message; return; }
+      const res = await fetch(API+'/import',{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(obj) });
+      const out = await res.text();
+      document.getElementById('importResult').textContent = out;
+      try { await load(); } catch {}
     }
     load();
   </script>

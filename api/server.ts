@@ -40,6 +40,8 @@ app.use((req, res, next) => {
 
 // Middleware
 app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Speakers Manager HTML UI
 app.get('/speakers', (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -357,6 +359,84 @@ app.delete('/api/vehicle-speakers/:id', (req, res) => {
   const [removed] = store.entries.splice(idx, 1);
   saveSpeakersStore(store);
   res.json({ deleted: true, id: removed.id });
+});
+
+// Import endpoint for Python auto_audio_db-like dict
+// Accepts either body as the dict itself or { data: dict }
+app.post('/api/vehicle-speakers/import', (req, res) => {
+  const payload = (req.body && req.body.data) ? req.body.data : req.body;
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return res.status(400).json({ error: 'Expected JSON object: { Brand: { Model: [ { ...gen } ] } } or { data: ... }' });
+  }
+
+  function inferSpeaker(gen: any): { speakerType?: string; speakerCount?: number } {
+    if (!gen || typeof gen !== 'object') return {};
+    const type = gen.premiovy_system || gen.premium_system || gen.audio_brand || gen.system || gen.speaker_brand;
+    const count = gen.pocet_reproduktorov ?? gen.pocet ?? gen.reproduktory ?? gen.speakers ?? gen.count;
+    const parsedCount = typeof count === 'string' ? parseInt(count, 10) : count;
+    return {
+      speakerType: typeof type === 'string' ? type : undefined,
+      speakerCount: typeof parsedCount === 'number' && !isNaN(parsedCount) ? parsedCount : undefined
+    };
+  }
+
+  type Summary = { brands: number; models: number; created: number; updated: number; skipped: number; errors: Array<{ brand: string; model?: string; reason: string }> };
+  const summary: Summary = { brands: 0, models: 0, created: 0, updated: 0, skipped: 0, errors: [] };
+  const store = ensureSpeakersStore();
+
+  try {
+    const brandEntries = Object.entries(payload as Record<string, any>);
+    summary.brands = brandEntries.length;
+    for (const [brand, models] of brandEntries) {
+      if (!models || typeof models !== 'object') { summary.errors.push({ brand, reason: 'models is not an object' }); continue; }
+      const modelEntries = Object.entries(models as Record<string, any>);
+      summary.models += modelEntries.length;
+      for (const [model, value] of modelEntries) {
+        let lastGen: any | undefined;
+        if (Array.isArray(value)) {
+          lastGen = value[value.length - 1];
+        } else if (value && typeof value === 'object') {
+          // Support alternative shapes, e.g., { generations: [...] }
+          const gens = Array.isArray((value as any).generations) ? (value as any).generations : undefined;
+          lastGen = gens ? gens[gens.length - 1] : value;
+        }
+        const { speakerType, speakerCount } = inferSpeaker(lastGen);
+        if (!speakerType && (speakerCount === undefined)) {
+          summary.skipped++;
+          continue;
+        }
+        const id = slugifyId(brand, model);
+        const existingIdx = store.entries.findIndex(e => e.id === id);
+        const now = new Date().toISOString();
+        if (existingIdx === -1) {
+          const entry: VehicleSpeakerEntry = {
+            id,
+            vehicleType: brand,
+            model,
+            speakerType: speakerType || 'unknown',
+            speakerCount: speakerCount ?? 0,
+            createdAt: now
+          };
+          store.entries.push(entry);
+          summary.created++;
+        } else {
+          const cur = store.entries[existingIdx];
+          const updated: VehicleSpeakerEntry = {
+            ...cur,
+            speakerType: speakerType ?? cur.speakerType,
+            speakerCount: (speakerCount ?? cur.speakerCount),
+            updatedAt: now
+          };
+          store.entries[existingIdx] = updated;
+          summary.updated++;
+        }
+      }
+    }
+    saveSpeakersStore(store);
+    res.json(summary);
+  } catch (e) {
+    res.status(500).json({ error: 'Import failed', details: String(e) });
+  }
 });
 
 // Profile Lock Continuity Routes
