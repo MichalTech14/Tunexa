@@ -5,47 +5,11 @@ Sends auto_audio_db to Tunexa API /api/vehicle-speakers/import endpoint
 import json
 import requests
 
-# Assuming your main.py creates auto_audio_db, import it:
-# from main import auto_audio_db
-
-# OR define it here manually for testing:
-auto_audio_db = {
-    "BMW": {
-        "X5": [
-            {
-                "generacia": "G05",
-                "premiovy_system": "Harman Kardon",
-                "pocet_reproduktorov": 16,
-                "vykon": "464W"
-            }
-        ],
-        "3 Series": [
-            {
-                "generacia": "G20",
-                "premiovy_system": "Harman Kardon",
-                "pocet_reproduktorov": 16
-            }
-        ]
-    },
-    "Audi": {
-        "Q7": [
-            {
-                "generacia": "4M",
-                "premiovy_system": "Bang & Olufsen",
-                "pocet_reproduktorov": 23
-            }
-        ]
-    },
-    "Mercedes-Benz": {
-        "E-Class": [
-            {
-                "generacia": "W213",
-                "premiovy_system": "Burmester",
-                "pocet_reproduktorov": 13
-            }
-        ]
-    }
-}
+# Importuj tvoje reálne dáta z main.py
+try:
+    from main import auto_audio_db  # musí existovať v python/main.py
+except Exception as e:
+    raise SystemExit(f"Nebolo možné importovať auto_audio_db z main.py: {e}")
 
 # API endpoint
 API_URL = "http://localhost:3000/api/vehicle-speakers/import"

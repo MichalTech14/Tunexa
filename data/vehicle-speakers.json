@@ -4,9 +4,34 @@
       "id": "bmw-x5",
       "vehicleType": "BMW",
       "model": "X5",
-      "speakerType": "Harman",
+      "speakerType": "Harman Kardon",
       "speakerCount": 16,
-      "createdAt": "2025-10-20T19:31:43.916Z"
+      "createdAt": "2025-10-20T19:31:43.916Z",
+      "updatedAt": "2025-10-20T20:32:27.895Z"
+    },
+    {
+      "id": "bmw-3-series",
+      "vehicleType": "BMW",
+      "model": "3 Series",
+      "speakerType": "Harman Kardon",
+      "speakerCount": 16,
+      "createdAt": "2025-10-20T20:32:27.895Z"
+    },
+    {
+      "id": "audi-q7",
+      "vehicleType": "Audi",
+      "model": "Q7",
+      "speakerType": "Bang & Olufsen",
+      "speakerCount": 23,
+      "createdAt": "2025-10-20T20:32:27.895Z"
+    },
+    {
+      "id": "mercedes-benz-e-class",
+      "vehicleType": "Mercedes-Benz",
+      "model": "E-Class",
+      "speakerType": "Burmester",
+      "speakerCount": 13,
+      "createdAt": "2025-10-20T20:32:27.895Z"
     }
   ]
 }

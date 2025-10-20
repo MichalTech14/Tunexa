@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Optimalizácia zvuku | Tunexa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7fa; margin: 0; }
+    .container { max-width: 500px; margin: 2em auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2em; }
+    h1 { text-align: center; }
+    .vehicle-info { margin-bottom: 1.5em; background: #f0f4fa; border-radius: 6px; padding: 1em; }
+    .result { margin-top: 1.5em; background: #e3e7ee; border-radius: 6px; padding: 1em; text-align: center; }
+    .btn { background: #7ca1e6; color: #fff; border: none; padding: 0.8em 1.5em; border-radius: 6px; font-size: 1.1em; cursor: pointer; margin-top: 1em; }
+    .btn:disabled { background: #ccc; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Optimalizácia zvuku</h1>
+    <div class="vehicle-info" id="vehicleInfo"></div>
+    <div class="result" id="resultBlock">Pripravené na optimalizáciu. Stlač tlačidlo nižšie pre spustenie analýzy a návrhu úprav.</div>
+    <button class="btn" id="startOptBtn">🔊 Spustiť optimalizáciu</button>
+    <div class="result" id="optResultBlock" style="display:none;"></div>
+  </div>
+  <script src="/public/audio-optimization.js"></script>
+</body>
+</html>

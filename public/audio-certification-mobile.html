@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Certification Mobile | Tunexa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7fa; margin: 0; }
+    .container { max-width: 400px; margin: 2em auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 1.5em; }
+    h1 { text-align: center; }
+    .vehicle-info { margin-bottom: 1.5em; background: #f0f4fa; border-radius: 6px; padding: 1em; }
+    .mic-section { text-align: center; margin-top: 1em; }
+    button { background: #7ca1e6; color: #fff; border: none; padding: 0.7em 1.2em; border-radius: 6px; font-size: 1em; cursor: pointer; }
+    button:disabled { background: #ccc; }
+    .result { margin-top: 1.5em; background: #e3e7ee; border-radius: 6px; padding: 1em; text-align: center; }
+    .info { color: #a88; font-size: 0.95em; margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mobilné meranie zvuku</h1>
+    <div class="vehicle-info" id="vehicleInfo"></div>
+    <div class="info">Pre kvalitné meranie použite mikrofón pripojený k telefónu. Meranie bude uložené v zariadení.</div>
+    <div class="mic-section">
+      <button id="startMicBtn">🎤 Spustiť meranie</button>
+      <div id="micStatus"></div>
+    </div>
+    <div class="result" id="resultBlock" style="display:none;"></div>
+    <div class="result" id="myMeasurementsBlock" style="display:block; margin-top:2em; background:#f7f7fa; color:#333; border:1px solid #e3e7ee;">
+      <b>Moje merania:</b>
+      <ul id="measurementsList" style="padding-left:1em;"></ul>
+      <button id="exportBtn" style="margin-top:1em;">⬇️ Exportovať merania</button>
+    </div>
+  </div>
+  <script src="/public/audio-certification-mobile.js"></script>
+  <script src="/public/audio-certification-mobile-export.js"></script>
+</body>
+</html>

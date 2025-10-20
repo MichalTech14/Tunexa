@@ -1,0 +1,5 @@
+/* Minimal extra styles for speakers browser */
+body { background: #f7f7fa; }
+.accordion { box-shadow: 0 2px 8px #0001; }
+.brand.open > button, .model.open > button, .generation.open > button { background: #c7d2e3; }
+.details { border-left: 3px solid #7ca1e6; }

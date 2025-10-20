@@ -42,6 +42,8 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Serve static assets under /public (JS/CSS/HTML)
+app.use('/public', express.static(path.join(process.cwd(), 'public')));
 // Speakers Manager HTML UI
 app.get('/speakers', (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -51,6 +53,30 @@ app.get('/speakers', (req, res) => {
 app.get('/cars', (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.sendFile(path.join(process.cwd(), 'public', 'cars.html'));
+});
+
+// Speakers Browser UI
+app.get('/speakers-browser', (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.sendFile(path.join(process.cwd(), 'public', 'speakers-browser.html'));
+});
+
+// Audio Certification (browser mic)
+app.get('/audio-certification', (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.sendFile(path.join(process.cwd(), 'public', 'audio-certification.html'));
+});
+
+// Audio Certification (mobile mic)
+app.get('/audio-certification-mobile', (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.sendFile(path.join(process.cwd(), 'public', 'audio-certification-mobile.html'));
+});
+
+// Audio Optimization flow
+app.get('/audio-optimization', (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.sendFile(path.join(process.cwd(), 'public', 'audio-optimization.html'));
 });
 
 // Simple test route
@@ -91,8 +117,11 @@ function slugify(text: string): string {
 
 function getAllCars() {
   const allCars: any[] = [];
+  if (!tunexaEngine || !Array.isArray(tunexaEngine.carsDatabase)) {
+    return allCars;
+  }
   tunexaEngine.carsDatabase.forEach((brand: any) => {
-    if (brand.models) {
+    if (brand && Array.isArray(brand.models)) {
       brand.models.forEach((car: any) => {
         const brandSlug = slugify(brand.brand);
         const modelSlug = slugify(car.name);
@@ -369,14 +398,23 @@ app.post('/api/vehicle-speakers/import', (req, res) => {
     return res.status(400).json({ error: 'Expected JSON object: { Brand: { Model: [ { ...gen } ] } } or { data: ... }' });
   }
 
-  function inferSpeaker(gen: any): { speakerType?: string; speakerCount?: number } {
+  function inferSpeaker(gen: any): { speakerType?: string; speakerCount?: number; basicSystem?: string; basicCount?: number; generation?: string; years?: string } {
     if (!gen || typeof gen !== 'object') return {};
     const type = gen.premiovy_system || gen.premium_system || gen.audio_brand || gen.system || gen.speaker_brand;
     const count = gen.pocet_reproduktorov ?? gen.pocet ?? gen.reproduktory ?? gen.speakers ?? gen.count;
+    const basicSystem = gen.zakladny_system || gen.basic_system || gen.base_system || gen.oem_system;
+    const basicCountRaw = gen.pocet_zaklad || gen.basic_count || gen.base_count;
+    const generation = gen.generacia || gen.generation || gen.gen || gen.series;
+    const years = gen.roky || gen.years || gen.production_years;
     const parsedCount = typeof count === 'string' ? parseInt(count, 10) : count;
+    const parsedBasicCount = typeof basicCountRaw === 'string' ? parseInt(basicCountRaw, 10) : basicCountRaw;
     return {
       speakerType: typeof type === 'string' ? type : undefined,
-      speakerCount: typeof parsedCount === 'number' && !isNaN(parsedCount) ? parsedCount : undefined
+      speakerCount: typeof parsedCount === 'number' && !isNaN(parsedCount) ? parsedCount : undefined,
+      basicSystem: typeof basicSystem === 'string' ? basicSystem : undefined,
+      basicCount: typeof parsedBasicCount === 'number' && !isNaN(parsedBasicCount) ? parsedBasicCount : undefined,
+      generation: typeof generation === 'string' ? generation : undefined,
+      years: typeof years === 'string' ? years : undefined
     };
   }
 
@@ -400,8 +438,8 @@ app.post('/api/vehicle-speakers/import', (req, res) => {
           const gens = Array.isArray((value as any).generations) ? (value as any).generations : undefined;
           lastGen = gens ? gens[gens.length - 1] : value;
         }
-        const { speakerType, speakerCount } = inferSpeaker(lastGen);
-        if (!speakerType && (speakerCount === undefined)) {
+        const { speakerType, speakerCount, basicSystem, basicCount, generation, years } = inferSpeaker(lastGen);
+        if (!speakerType && (speakerCount === undefined) && !basicSystem && (basicCount === undefined)) {
           summary.skipped++;
           continue;
         }
@@ -415,6 +453,10 @@ app.post('/api/vehicle-speakers/import', (req, res) => {
             model,
             speakerType: speakerType || 'unknown',
             speakerCount: speakerCount ?? 0,
+            basicSystem,
+            basicCount,
+            generation,
+            years,
             createdAt: now
           };
           store.entries.push(entry);
@@ -425,6 +467,10 @@ app.post('/api/vehicle-speakers/import', (req, res) => {
             ...cur,
             speakerType: speakerType ?? cur.speakerType,
             speakerCount: (speakerCount ?? cur.speakerCount),
+            basicSystem: basicSystem ?? cur.basicSystem,
+            basicCount: (basicCount ?? cur.basicCount),
+            generation: generation ?? cur.generation,
+            years: years ?? cur.years,
             updatedAt: now
           };
           store.entries[existingIdx] = updated;
@@ -480,6 +526,12 @@ app.get('/', (req, res) => {
     documentation: '/api/docs',
     dashboard: '/dashboard'
   });
+});
+
+// Dashboard route (serve root index.html)
+app.get('/dashboard', (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.sendFile(path.join(process.cwd(), 'index.html'));
 });
 
 // Start server with engine initialization

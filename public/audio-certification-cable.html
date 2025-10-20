@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Káblové meranie | Tunexa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7fa; margin: 0; }
+    .container { max-width: 400px; margin: 2em auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 1.5em; }
+    h1 { text-align: center; }
+    .vehicle-info { margin-bottom: 1.5em; background: #f0f4fa; border-radius: 6px; padding: 1em; }
+    .info { color: #a88; font-size: 0.95em; margin-bottom: 1em; }
+    .mic-section { text-align: center; margin-top: 1em; }
+    button { background: #7ca1e6; color: #fff; border: none; padding: 0.7em 1.2em; border-radius: 6px; font-size: 1em; cursor: pointer; }
+    button:disabled { background: #ccc; }
+    .result { margin-top: 1.5em; background: #e3e7ee; border-radius: 6px; padding: 1em; text-align: center; }
+    .failed-data { background: #fffbe6; color: #a88; border: 1px dashed #e3e7ee; margin-bottom: 1em; padding: 0.7em; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Káblové meranie zvuku</h1>
+    <div class="vehicle-info" id="vehicleInfo"></div>
+    <div class="failed-data" id="failedDataBlock" style="display:none;"></div>
+    <div class="info">Pripojte mikrofón káblom a spustite nové meranie. Predchádzajúce neúspešné meranie bude pripojené k výsledku.</div>
+    <div class="mic-section">
+      <button id="startMicBtn">🎤 Spustiť káblové meranie</button>
+      <div id="micStatus"></div>
+    </div>
+    <div class="result" id="resultBlock" style="display:none;"></div>
+  </div>
+  <script src="/public/audio-certification-cable.js"></script>
+</body>
+</html>
