@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tunexa Dashboard - Local</title>
+<style>
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 0;
+  min-height: 100vh;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { font-size: 2.5em; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+.card {
+  background: rgba(255,255,255,0.15);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.card h3 { margin: 0 0 10px 0; font-size: 1.2em; }
+.status { font-size: 1.8em; margin: 10px 0; font-weight: bold; }
+.online { color: #4ade80; }
+.btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 5px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+.btn:hover { background: rgba(255,255,255,0.4); }
+#results {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  display: none;
+}
+#resultContent {
+  background: rgba(0,0,0,0.4);
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+.alert { 
+  background: rgba(255,193,7,0.2); 
+  border: 1px solid rgba(255,193,7,0.5);
+  padding: 15px; 
+  border-radius: 8px; 
+  margin: 15px 0; 
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>🎵 Tunexa Dashboard</h1>
+    <p>Intelligent Audio Engine - Real-time Monitoring</p>
+  </div>
+
+  <div class="alert">
+    <strong>📡 Server Status:</strong> Connecting to localhost:3000...
+    <button class="btn" onclick="checkConnection()">Test Connection</button>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 System</h3>
+      <div class="status" id="systemStatus">●</div>
+      <button class="btn" onclick="checkHealth()">Check Health</button>
+    </div>
+    
+    <div class="card">
+      <h3>🗄️ Database</h3>
+      <div class="status">119</div>
+      <p>Car Models</p>
+    </div>
+    
+    <div class="card">
+      <h3>📊 Modules</h3>
+      <div class="status">6</div>
+      <p>Active</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🎯 Audio Certification</h3>
+      <p>ISO standard testing</p>
+      <button class="btn" onclick="testCertification()">Test Cert</button>
+    </div>
+    
+    <div class="card">
+      <h3>🔌 OEM Integration</h3>
+      <p>Vehicle connection</p>
+      <button class="btn" onclick="testOEM()">Test OEM</button>
+    </div>
+    
+    <div class="card">
+      <h3>🎶 Spotify</h3>
+      <p>Music integration</p>
+      <button class="btn" onclick="testSpotify()">Test Spotify</button>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin: 20px 0;">
+    <a href="http://localhost:3000/" class="btn" target="_blank">🌐 Open API</a>
+    <a href="http://localhost:3000/health" class="btn" target="_blank">📊 Health Check</a>
+  </div>
+
+  <div id="results">
+    <h3>🔬 Results:</h3>
+    <div id="resultContent"></div>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:3000';
+
+async function makeRequest(endpoint, options = {}) {
+  try {
+    const response = await fetch(API_BASE + endpoint, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+function showResult(data) {
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('resultContent').textContent = JSON.stringify(data, null, 2);
+}
+
+async function checkConnection() {
+  try {
+    const response = await fetch(API_BASE + '/health');
+    if (response.ok) {
+      showResult({ connection: 'SUCCESS', message: 'Server is reachable!' });
+    } else {
+      showResult({ connection: 'ERROR', status: response.status });
+    }
+  } catch (error) {
+    showResult({ connection: 'FAILED', error: error.message, 
+                 suggestion: 'Make sure server is running on port 3000' });
+  }
+}
+
+async function checkHealth() {
+  const data = await makeRequest('/health');
+  showResult(data);
+  
+  const statusEl = document.getElementById('systemStatus');
+  if (data.status === 'healthy') {
+    statusEl.className = 'status online';
+    statusEl.textContent = '●';
+  } else {
+    statusEl.className = 'status';
+    statusEl.textContent = '●';
+  }
+}
+
+async function testCertification() {
+  const data = await makeRequest('/api/audio-certification/certify', {
+    method: 'POST',
+    body: JSON.stringify({ 
+      vehicle: 'BMW 3 Series', 
+      user: 'demo-user' 
+    })
+  });
+  showResult(data);
+}
+
+async function testOEM() {
+  const data = await makeRequest('/api/oem-integration/connect', {
+    method: 'POST', 
+    body: JSON.stringify({ 
+      protocol: 'CAN-FD', 
+      vehicle: 'Tesla Model 3' 
+    })
+  });
+  showResult(data);
+}
+
+async function testSpotify() {
+  const data = await makeRequest('/api/spotify-integration');
+  showResult(data);
+}
+
+// Auto-check connection on load
+setTimeout(checkConnection, 1000);
+</script>
+
+</body>
+</html>

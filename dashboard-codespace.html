@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tunexa Dashboard - Codespace</title>
+<meta charset="UTF-8">
+<style>
+body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;font-family:Arial;padding:20px;margin:0;min-height:100vh}
+.container{max-width:1000px;margin:0 auto}
+h1{text-align:center;font-size:2.5em;margin:20px 0}
+.box{background:rgba(255,255,255,0.2);padding:20px;margin:15px 0;border-radius:15px;backdrop-filter:blur(10px)}
+.btn{background:rgba(255,255,255,0.3);color:white;padding:12px 20px;border:none;border-radius:25px;cursor:pointer;margin:8px;transition:all 0.3s ease}
+.btn:hover{background:rgba(255,255,255,0.5);transform:translateY(-2px)}
+.result{background:rgba(0,0,0,0.3);padding:15px;margin:10px 0;border-radius:8px;font-family:monospace;white-space:pre-wrap;display:none}
+.status{font-size:1.2em;font-weight:bold}
+.online{color:#4ade80}
+.offline{color:#f87171}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:20px 0}
+.card{background:rgba(255,255,255,0.15);padding:20px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.2)}
+.card h3{margin:0 0 10px 0;font-size:1.3em}
+.card .value{font-size:2em;font-weight:bold;margin:10px 0}
+.url-box{background:rgba(0,0,0,0.3);padding:10px;border-radius:5px;font-family:monospace;font-size:0.9em;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🎵 Tunexa Dashboard</h1>
+<p style="text-align:center;font-size:1.1em;opacity:0.9">Intelligent Audio Engine - GitHub Codespace</p>
+
+<div class="box">
+<h3>🔗 Codespace Info</h3>
+<p>Codespace: <span class="url-box">fuzzy-rotary-phone-r4vqrgj9x5p5cx7g9</span></p>
+<p>API Base URL: <span class="url-box" id="apiUrl">Detekujem...</span></p>
+</div>
+
+<div class="grid">
+<div class="card">
+<h3>🚀 System Status</h3>
+<div class="value online" id="systemStatus">●</div>
+<p id="statusText">Checking...</p>
+</div>
+<div class="card">
+<h3>🗄️ Database</h3>
+<div class="value" id="carCount">119</div>
+<p>Car Models</p>
+</div>
+<div class="card">
+<h3>📊 Acoustics</h3>
+<div class="value" id="acousticsCount">5</div>
+<p>Profiles</p>
+</div>
+<div class="card">
+<h3>🔧 Modules</h3>
+<div class="value" id="moduleCount">6</div>
+<p>Active</p>
+</div>
+</div>
+
+<div class="box">
+<h2>🔍 System Health Check</h2>
+<button class="btn" onclick="checkHealth()">Check API Health</button>
+<div id="healthResult" class="result"></div>
+</div>
+
+<div class="box">
+<h2>🎯 Audio Certification Test</h2>
+<p>Test the automotive audio certification system.</p>
+<button class="btn" onclick="testCertification()">Run Test</button>
+<div id="certResult" class="result"></div>
+</div>
+
+<div class="box">
+<h2>🔌 OEM Integration Test</h2>
+<p>Test vehicle connection via CAN-FD protocol.</p>
+<button class="btn" onclick="testOEM()">Test Connection</button>
+<div id="oemResult" class="result"></div>
+</div>
+
+</div>
+
+<script>
+// Auto-detect API base URL
+const API_BASE = window.location.hostname.includes('github.dev') 
+  ? window.location.origin 
+  : 'http://localhost:3000';
+
+document.getElementById('apiUrl').textContent = API_BASE;
+
+function showResult(elementId, data) {
+  const el = document.getElementById(elementId);
+  el.style.display = 'block';
+  el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+}
+
+function hideResult(elementId) {
+  document.getElementById(elementId).style.display = 'none';
+}
+
+async function makeRequest(endpoint, options = {}) {
+  try {
+    const url = API_BASE + endpoint;
+    console.log('Request:', url);
+    const response = await fetch(url, {
+      headers: { 'Content-Type': 'application/json', ...options.headers },
+      ...options
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Request failed:', error);
+    return { 
+      error: error.message,
+      timestamp: new Date().toISOString(),
+      endpoint: endpoint,
+      apiBase: API_BASE
+    };
+  }
+}
+
+async function checkHealth() {
+  hideResult('healthResult');
+  showResult('healthResult', 'Checking server health...');
+  
+  const statusEl = document.getElementById('systemStatus');
+  const statusText = document.getElementById('statusText');
+  
+  try {
+    const data = await makeRequest('/health');
+    showResult('healthResult', data);
+    
+    if (data.status === 'healthy') {
+      statusEl.className = 'value online';
+      statusEl.textContent = '●';
+      statusText.textContent = 'Online';
+    } else {
+      statusEl.className = 'value offline';
+      statusEl.textContent = '●';
+      statusText.textContent = 'Error';
+    }
+  } catch(e) {
+    statusEl.className = 'value offline';
+    statusEl.textContent = '●';
+    statusText.textContent = 'Offline';
+    showResult('healthResult', 'Error: ' + e.message);
+  }
+}
+
+async function testCertification() {
+  hideResult('certResult');
+  showResult('certResult', 'Running audio certification...');
+  
+  const data = await makeRequest('/api/audio-certification/certify', {
+    method: 'POST',
+    body: JSON.stringify({ 
+      vehicle: 'BMW 3 Series',
+      user: 'codespace-user',
+      timestamp: new Date().toISOString()
+    })
+  });
+  showResult('certResult', data);
+}
+
+async function testOEM() {
+  hideResult('oemResult');
+  showResult('oemResult', 'Testing OEM connection...');
+  
+  const data = await makeRequest('/api/oem-integration/connect', {
+    method: 'POST',
+    body: JSON.stringify({ 
+      protocol: 'CAN-FD',
+      vehicle: 'Tesla Model 3'
+    })
+  });
+  showResult('oemResult', data);
+}
+
+// Auto-check on load
+window.addEventListener('load', function() {
+  setTimeout(checkHealth, 500);
+});
+
+// Auto-refresh every 30s
+setInterval(checkHealth, 30000);
+</script>
+
+</body>
+</html>

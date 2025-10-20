@@ -48,6 +48,123 @@ export function compareCars(carA: CarSpecs, carB: CarSpecs): string {
   return result;
 }
 
+export function compareCarModels(
+  carA: CarSpecs,
+  carB: CarSpecs,
+  modelA: string,
+  modelB: string,
+  criteria: string[]
+): {
+  comparison: {
+    model_a: string;
+    model_b: string;
+    criteria: string[];
+    results: {
+      criterion: string;
+      model_a_value: any;
+      model_b_value: any;
+      winner: string;
+      difference?: number;
+      notes?: string;
+    }[];
+    overall_winner: string;
+    summary: string;
+  };
+} {
+  const results: any[] = [];
+  let scoreA = 0;
+  let scoreB = 0;
+
+  criteria.forEach(criterion => {
+    let valueA: any;
+    let valueB: any;
+    let winner: string;
+    let difference: number | undefined;
+    let notes: string | undefined;
+
+    switch (criterion.toLowerCase()) {
+      case 'horsepower':
+      case 'power':
+        valueA = carA.horsepower;
+        valueB = carB.horsepower;
+        winner = valueA > valueB ? modelA : valueB > valueA ? modelB : 'tie';
+        difference = Math.abs(valueA - valueB);
+        if (winner === modelA) scoreA++;
+        else if (winner === modelB) scoreB++;
+        break;
+
+      case 'torque':
+        valueA = carA.torque;
+        valueB = carB.torque;
+        winner = valueA > valueB ? modelA : valueB > valueA ? modelB : 'tie';
+        difference = Math.abs(valueA - valueB);
+        if (winner === modelA) scoreA++;
+        else if (winner === modelB) scoreB++;
+        break;
+
+      case 'audio':
+      case 'audioscore':
+        valueA = carA.audioScore;
+        valueB = carB.audioScore;
+        winner = valueA > valueB ? modelA : valueB > valueA ? modelB : 'tie';
+        difference = Math.abs(valueA - valueB);
+        if (winner === modelA) scoreA++;
+        else if (winner === modelB) scoreB++;
+        break;
+
+      case 'price':
+        valueA = carA.price;
+        valueB = carB.price;
+        winner = valueA < valueB ? modelA : valueB < valueA ? modelB : 'tie'; // Lower price wins
+        difference = Math.abs(valueA - valueB);
+        notes = 'Lower price is better';
+        if (winner === modelA) scoreA++;
+        else if (winner === modelB) scoreB++;
+        break;
+
+      case 'speakers':
+        valueA = carA.audio?.speakers || 4;
+        valueB = carB.audio?.speakers || 4;
+        winner = valueA > valueB ? modelA : valueB > valueA ? modelB : 'tie';
+        difference = Math.abs(valueA - valueB);
+        if (winner === modelA) scoreA++;
+        else if (winner === modelB) scoreB++;
+        break;
+
+      default:
+        valueA = 'N/A';
+        valueB = 'N/A';
+        winner = 'tie';
+        notes = `Unknown criterion: ${criterion}`;
+    }
+
+    results.push({
+      criterion,
+      model_a_value: valueA,
+      model_b_value: valueB,
+      winner,
+      difference,
+      notes,
+    });
+  });
+
+  const overallWinner = scoreA > scoreB ? modelA : scoreB > scoreA ? modelB : 'tie';
+  const summary = `${modelA} scored ${scoreA}/${criteria.length}, ${modelB} scored ${scoreB}/${criteria.length}. ${
+    overallWinner === 'tie' ? 'It\'s a tie!' : `${overallWinner} wins overall.`
+  }`;
+
+  return {
+    comparison: {
+      model_a: modelA,
+      model_b: modelB,
+      criteria,
+      results,
+      overall_winner: overallWinner,
+      summary,
+    },
+  };
+}
+
 export function calculateAudioScore(audio: AudioSystem): number {
   // Calculate audio score based on speaker count and system type
   let baseScore = audio.speakers * 5; // Base score from speaker count

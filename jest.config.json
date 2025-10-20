@@ -1,0 +1,25 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "extensionsToTreatAsEsm": [".ts"],
+  "transform": {
+    "^.+\\.ts$": ["ts-jest", {
+      "useESM": true
+    }]
+  },
+  "moduleNameMapping": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+  },
+  "testMatch": [
+    "**/tests/**/*.test.ts",
+    "**/__tests__/**/*.test.ts"
+  ],
+  "collectCoverageFrom": [
+    "modules/**/*.ts",
+    "scripts/**/*.ts", 
+    "index.ts",
+    "!**/*.d.ts",
+    "!**/node_modules/**"
+  ],
+  "setupFilesAfterEnv": []
+}

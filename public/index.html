@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tunexa - Intelligent Audio Engine</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin: 10px 0;
+        }
+        .status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .status-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+        .status-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.3em;
+        }
+        .status-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .module-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .module-card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .module-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .emoji {
+            font-size: 1.5em;
+        }
+        .online {
+            color: #4ade80;
+        }
+        .offline {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 Tunexa</h1>
+            <p>Intelligent Audio Engine - Automotive Audio Analysis & Certification</p>
+        </div>
+
+        <div class="status">
+            <div class="status-card">
+                <h3>🚀 System Status</h3>
+                <div class="value online" id="systemStatus">●</div>
+                <p>Engine Running</p>
+            </div>
+            <div class="status-card">
+                <h3>🗄️ Database</h3>
+                <div class="value" id="carCount">119</div>
+                <p>Car Models</p>
+            </div>
+            <div class="status-card">
+                <h3>📊 Acoustics Data</h3>
+                <div class="value" id="acousticsCount">5</div>
+                <p>Available Profiles</p>
+            </div>
+            <div class="status-card">
+                <h3>🔧 Active Modules</h3>
+                <div class="value" id="moduleCount">5</div>
+                <p>Modules Ready</p>
+            </div>
+        </div>
+
+        <div class="modules">
+            <div class="module-card">
+                <h3><span class="emoji">🎯</span> Audio Certification</h3>
+                <p>Automated audio system certification according to ISO standards. Real-time measurement and evaluation.</p>
+                <button class="btn" onclick="testCertification()">Test Certification</button>
+            </div>
+            
+            <div class="module-card">
+                <h3><span class="emoji">🔌</span> OEM Integration</h3>
+                <p>Integration with vehicle electronic systems via CAN-FD, DoIP, FlexRay, and Ethernet protocols.</p>
+                <button class="btn" onclick="testOEM()">Test Connection</button>
+            </div>
+            
+            <div class="module-card">
+                <h3><span class="emoji">🎶</span> Spotify Integration</h3>
+                <p>Advanced music streaming integration with audio quality optimization and personalization.</p>
+                <button class="btn" onclick="testSpotify()">Test Spotify</button>
+            </div>
+            
+            <div class="module-card">
+                <h3><span class="emoji">🔒</span> Profile Management</h3>
+                <p>User profile continuity and lock management with seamless audio preference transitions.</p>
+                <button class="btn" onclick="testProfile()">Test Profile</button>
+            </div>
+            
+            <div class="module-card">
+                <h3><span class="emoji">🤖</span> AI Background Listener</h3>
+                <p>Intelligent environment monitoring with anomaly detection and adaptive audio responses.</p>
+                <button class="btn" onclick="testAI()">Test AI Listener</button>
+            </div>
+            
+            <div class="module-card">
+                <h3><span class="emoji">⚡</span> Advanced Caching</h3>
+                <p>Multi-tier caching system with Redis clustering for optimal performance and scalability.</p>
+                <button class="btn" onclick="testCache()">Test Cache</button>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="http://localhost:3000/health" class="btn" target="_blank">📊 API Health</a>
+            <a href="http://localhost:3000/api/docs" class="btn" target="_blank">📚 API Docs</a>
+            <button class="btn" onclick="refreshStatus()">🔄 Refresh Status</button>
+        </div>
+
+        <div id="results" style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; display: none;">
+            <h3>🔬 Test Results:</h3>
+            <pre id="resultContent" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; overflow-x: auto;"></pre>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000';
+        
+        async function makeRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                return await response.json();
+            } catch (error) {
+                return { error: error.message };
+            }
+        }
+
+        function showResult(data) {
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('resultContent').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function testCertification() {
+            const data = await makeRequest('/api/audio-certification/certify', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    vehicle: 'BMW 3 Series',
+                    user: 'demo-user'
+                })
+            });
+            showResult(data);
+        }
+
+        async function testOEM() {
+            const data = await makeRequest('/api/oem-integration/connect', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    protocol: 'CAN-FD',
+                    vehicle: 'Tesla Model 3'
+                })
+            });
+            showResult(data);
+        }
+
+        async function testSpotify() {
+            const data = await makeRequest('/api/spotify-integration');
+            showResult(data);
+        }
+
+        async function testProfile() {
+            const data = await makeRequest('/api/profile-lock-continuity');
+            showResult(data);
+        }
+
+        async function testAI() {
+            const data = await makeRequest('/api/ai-background-listener', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    environment: 'highway',
+                    noise_level: 65
+                })
+            });
+            showResult(data);
+        }
+
+        async function testCache() {
+            const data = await makeRequest('/api/cache/status');
+            showResult(data);
+        }
+
+        async function refreshStatus() {
+            const health = await makeRequest('/health');
+            if (health.status === 'healthy') {
+                document.getElementById('systemStatus').className = 'value online';
+                document.getElementById('systemStatus').textContent = '●';
+            } else {
+                document.getElementById('systemStatus').className = 'value offline';
+                document.getElementById('systemStatus').textContent = '●';
+            }
+        }
+
+        // Auto-refresh status every 30 seconds
+        setInterval(refreshStatus, 30000);
+        
+        // Initial status check
+        refreshStatus();
+    </script>
+</body>
+</html>
